@@ -33,7 +33,7 @@ export default function FooterCom() {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                   Muhammad's Job Portal
+                 Intern Pools
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>

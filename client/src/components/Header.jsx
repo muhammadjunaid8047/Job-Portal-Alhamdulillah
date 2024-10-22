@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
+import logo from '../images/logopngg.png'
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -54,10 +55,17 @@ export default function Header() {
         to='/'
         className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
       >
-        <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-          Muhammad's
-        </span>
-        Job Portal
+        {/* <img 
+      src={logo} // Replace 'logo' with the actual path to your image file
+      alt="Logo"
+      className="h-20 w-20 mb-1" // Adjust the size as needed (h-10 w-10 for similar size)
+    /> */}
+
+    {/* Text below the image */}
+    <div className="flex items-center justify-center mt-5">
+      <span className="text-2xl bold dark:text-white">Intern</span>
+      <span className="text-2xl light dark:text-white">pools</span>
+    </div>
       </Link>
       <form onSubmit={handleSubmit}>
         <TextInput
@@ -89,8 +97,16 @@ export default function Header() {
               <Avatar alt='user' img={currentUser.profilePicture} rounded />
             }
           >
+           <Dropdown.Header>
+                    <div className='flex flex-col items-center mt-5 glowing-border'>
+                      <Avatar alt='user' img={currentUser.profilePicture} size="lg" rounded className='mb-2 ' />
+                      <span className='block text-lg font-semibold'>
+                        Salam, {currentUser.username}
+                      </span>
+                    </div>
+            </Dropdown.Header>
             <Dropdown.Header>
-              <span className='block text-sm'>@{currentUser.username}</span>
+              {/* <span className='block text-sm'>@{currentUser.username}</span> */}
               <span className='block text-sm font-medium truncate'>
                 {currentUser.email}
               </span>
@@ -111,16 +127,40 @@ export default function Header() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link active={path === '/'} as={'div'}>
+        <Navbar.Link className='mt-3' active={path === '/'} as={'div'}>
           <Link to='/'>Home</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === '/about'} as={'div'}>
+        
+        <Navbar.Link className='mt-3' active={path === '/about'} as={'div'}>
           <Link to='/about'>About</Link>
         </Navbar.Link>
+        <Navbar.Link className='mt-3' active={path === '/projects'} as={'div'}>
+          <Link to='/projects'>Ambassadors</Link>
+        </Navbar.Link>
         <Navbar.Link active={path === '/projects'} as={'div'}>
-          <Link to='/projects'>Projects</Link>
+          <Link to='/create-post'>
+          <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full '
+            >
+              Create an Internship
+            </Button>
+          </Link>
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
+  
 }
+
+// {currentUser.isAdmin && (
+//   <Link to={'/create-post'}>
+//     <Button
+//       type='button'
+//       gradientDuoTone='purpleToPink'
+//       className='w-full'
+//     >
+//       Create a post
+//     </Button>
+//   </Link>

@@ -51,10 +51,10 @@ export default function Header() {
 
   return (
     <Navbar className='border-b-2'>
-      <Link
-        to='/'
-        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
-      >
+     <Link
+          to='/'
+          className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
+        >
         {/* <img 
       src={logo} // Replace 'logo' with the actual path to your image file
       alt="Logo"
@@ -66,7 +66,10 @@ export default function Header() {
       <span className="text-2xl bold dark:text-white">Intern</span>
       <span className="text-2xl light dark:text-white">pools</span>
     </div>
-      </Link>
+    {/* <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
+          Muhammad's
+        </span> */}
+        </Link>
       <form onSubmit={handleSubmit}>
         <TextInput
           type='text'

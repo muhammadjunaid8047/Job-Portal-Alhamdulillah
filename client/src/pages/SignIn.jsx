@@ -9,6 +9,8 @@ import {
 } from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
 
+import logo from '../images/logoo-01.svg'
+
 export default function SignIn() {
   const [formData, setFormData] = useState({});
   const { loading, error: errorMessage } = useSelector((state) => state.user);
@@ -43,7 +45,9 @@ export default function SignIn() {
     }
   };
   return (
+
     <div className='min-h-screen mt-20'>
+     
       <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         {/* left */}
         <div className='flex-1'>
@@ -58,7 +62,11 @@ export default function SignIn() {
             </span>
             {/* <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
               Sahand's
+            </span> */}
+            <span className=' light rounded-lg '>
+              POOLS
             </span>
+            
             
           </Link>
           <p className='text-sm mt-5'>

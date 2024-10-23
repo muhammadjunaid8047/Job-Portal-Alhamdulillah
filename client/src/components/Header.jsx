@@ -7,6 +7,8 @@ import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
 import logo from '../images/logopngg.png'
+import { PiRocketDuotone } from "react-icons/pi";
+
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -63,8 +65,8 @@ export default function Header() {
 
     {/* Text below the image */}
     <div className="flex items-center justify-center mt-5">
-      <span className="text-2xl bold dark:text-white">Intern</span>
-      <span className="text-2xl light dark:text-white">pools</span>
+      <span className="text-2xl bold dark:text-white">INTERN</span>
+      <span className="text-2xl light dark:text-white">POOLS</span>
     </div>
     {/* <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
           Muhammad's
@@ -104,7 +106,7 @@ export default function Header() {
                     <div className='flex flex-col items-center mt-5 glowing-border'>
                       <Avatar alt='user' img={currentUser.profilePicture} size="lg" rounded className='mb-2 ' />
                       <span className='block text-lg font-semibold'>
-                        Salam, {currentUser.username}
+                        Salam✨, {currentUser.username}
                       </span>
                     </div>
             </Dropdown.Header>
@@ -144,10 +146,11 @@ export default function Header() {
           <Link to='/create-post'>
           <Button
               type='button'
-              gradientDuoTone='purpleToPink'
-              className='w-full '
+              gradientDuoTone='purpleToPink' 
+              className='w-full btn normal'
+              
             >
-              Create an Internship
+              <PiRocketDuotone className='w-6 h-6 mr-2'/> Create an Internship  
             </Button>
           </Link>
         </Navbar.Link>

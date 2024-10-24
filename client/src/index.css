@@ -43,6 +43,10 @@ body {
 
 
 
+
+
+
+
 .glowing-border {
   padding: 10px;
   border-radius: 10px;
@@ -60,7 +64,7 @@ body {
   background-size: 400% 400%;
   border-radius: 12px;
   z-index: -1;
-  animation: glowing 8s ease infinite;
+  animation: glowing 60s ease infinite;
 }
 
 @keyframes glowing {
@@ -74,7 +78,6 @@ body {
     background-position: 0% 50%;
   }
 }
-
 
 /* Fonts Gotham */
 

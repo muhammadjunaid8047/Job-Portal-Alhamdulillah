@@ -22,6 +22,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
+import { PiRocketDuotone } from "react-icons/pi";
+
 
 export default function DashProfile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -243,12 +245,13 @@ export default function DashProfile() {
         </Button>
         {currentUser.isAdmin && (
           <Link to={'/create-post'}>
-            <Button
+             <Button
               type='button'
-              gradientDuoTone='purpleToPink'
-              className='w-full'
+              gradientDuoTone='purpleToPink' 
+              className='w-full btn normal light'
+              
             >
-              Create a post
+              <PiRocketDuotone className='w-6 h-6 mr-2 '/> Create an Internship  
             </Button>
           </Link>
         )}

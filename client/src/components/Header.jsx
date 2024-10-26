@@ -147,10 +147,10 @@ export default function Header() {
           <Button
               type='button'
               gradientDuoTone='purpleToPink' 
-              className='w-full btn normal'
+              className='w-full btn  light'
               
             >
-              <PiRocketDuotone className='w-6 h-6 mr-2'/> Create an Internship  
+              <PiRocketDuotone className='w-6 h-6 mr-2 '/> Create an Internship  
             </Button>
           </Link>
         </Navbar.Link>

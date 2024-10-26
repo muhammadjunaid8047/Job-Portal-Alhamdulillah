@@ -6,7 +6,10 @@ import PostCard from '../components/PostCard';
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [randomQuote, setRandomQuote] = useState('');
-  
+  const [displayedText, setDisplayedText] = useState('');
+  const [quoteIndex, setQuoteIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
   const quotes = [
     "The only way to do great work is to love what you do. - Steve Jobs",
     "Innovation distinguishes between a leader and a follower. - Steve Jobs",
@@ -19,10 +22,34 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    setRandomQuote(quotes[randomIndex]);
-  }, []);
-  
+    setRandomQuote(quotes[quoteIndex]);
+
+    if (isTyping) {
+      const typingInterval = setInterval(() => {
+        setDisplayedText((prev) => {
+          if (prev.length < randomQuote.length) {
+            return randomQuote.slice(0, prev.length + 1);
+          } else {
+            clearInterval(typingInterval);
+            setIsTyping(false); // Stop typing and start pause timer
+            return prev;
+          }
+        });
+      }, 80); // Adjust typing speed here
+
+      return () => clearInterval(typingInterval);
+    } else {
+      // Delay after typing is complete before switching to next quote
+      const pauseAfterTyping = setTimeout(() => {
+        setQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+        setDisplayedText(''); // Reset displayed text for new quote
+        setIsTyping(true); // Start typing next quote
+      }, 6000); // Pause time in milliseconds after full quote is typed
+
+      return () => clearTimeout(pauseAfterTyping);
+    }
+  }, [quoteIndex, randomQuote, isTyping]);
+
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch('/api/post/getPosts');
@@ -39,29 +66,10 @@ export default function Home() {
         <p className='text-gray-500 text-xs sm:text-sm'>
           Here you'll find a variety of Internships
         </p>
-        <div className="">
+        <div className="quote-container">
           <blockquote className="quote">
-            {randomQuote}
+            {displayedText}
           </blockquote>
-          <style jsx>{`
-            .quote-container {
-              max-width: ;
-              margin: 0rem auto;
-              padding: 0.2rem;
-              // background-color: #f8f8f8;
-              // border-radius: 0px;
-              float: left;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .quote {
-              font-size: 1rem;
-              line-height: 1.6;
-              // color: #333;
-              font-style: italic;
-              border-left: 4px solid #3498db;
-              padding-left: 0.3rem;
-            }
-          `}</style>
         </div>
         <Link
           to='/search'
@@ -92,6 +100,26 @@ export default function Home() {
           </div>
         )}
       </div>
+      <style jsx>{`
+        .quote-container {
+          // width: 300px
+          max-width: 500px;
+          // margin: 2rem 0;
+          // padding: 1rem;
+          // background-color: #f8f8f8;
+          border-radius: 8px;
+          // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          float: left;
+        }
+        .quote {
+          font-size: 1.0rem;
+          line-height: 1.6;
+          // color: #333;
+          font-style: italic;
+          border-left: 4px solid #38b2ac;
+          padding-left: 0.6rem;
+        }
+      `}</style>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { signoutSuccess } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
 import logo from '../images/logopngg.png'
 import { PiRocketDuotone } from "react-icons/pi";
+import { HiChartPie } from 'react-icons/hi';
 
 
 export default function Header() {
@@ -105,7 +106,7 @@ export default function Header() {
            <Dropdown.Header>
                     <div className='flex flex-col items-center mt-5 glowing-border'>
                       <Avatar alt='user' img={currentUser.profilePicture} size="lg" rounded className='mb-2 ' />
-                      <span className='block text-lg font-semibold'>
+                      <span className='block text-lg normal'>
                         Salam✨, {currentUser.username}
                       </span>
                     </div>
@@ -115,10 +116,29 @@ export default function Header() {
               <span className='block text-sm font-medium truncate'>
                 {currentUser.email}
               </span>
+
             </Dropdown.Header>
             <Link to={'/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
+            
+
+            {currentUser && currentUser.isAdmin && (
+           <Link to={'/dashboard?tab=profile'}>
+           <Dropdown.Item>Dashboard</Dropdown.Item>
+         </Link>
+        //  /dashboard?tab=posts
+        
+          )}
+          
+          {currentUser && currentUser.isAdmin && (
+           <Link to={'/dashboard?tab=posts'}>
+           <Dropdown.Item>Your Internships</Dropdown.Item>
+         </Link>
+        //  /dashboard?tab=posts
+        
+          )}
+        
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
@@ -143,6 +163,7 @@ export default function Header() {
           <Link to='/projects'>Ambassadors</Link>
         </Navbar.Link>
         <Navbar.Link active={path === '/projects'} as={'div'}>
+        {currentUser && (
           <Link to='/create-post'>
           <Button
               type='button'
@@ -152,7 +173,7 @@ export default function Header() {
             >
               <PiRocketDuotone className='w-6 h-6 mr-2 '/> Create an Internship  
             </Button>
-          </Link>
+          </Link>)}
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

@@ -131,7 +131,7 @@ export default function Header() {
         
           )}
           
-          {currentUser && currentUser.isAdmin && (
+          {currentUser && (
            <Link to={'/dashboard?tab=posts'}>
            <Dropdown.Item>Your Internships</Dropdown.Item>
          </Link>

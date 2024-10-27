@@ -1,17 +1,23 @@
-import { Link } from 'react-router-dom';
-import CallToAction from '../components/CallToAction';
-import { useEffect, useState } from 'react';
-import PostCard from '../components/PostCard';
+'use client'
+
+import { Link } from 'react-router-dom'
+import CallToAction from '../components/CallToAction'
+import { useEffect, useState } from 'react'
+import PostCard from '../components/PostCard'
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const [randomQuote, setRandomQuote] = useState('');
-  const [displayedText, setDisplayedText] = useState('');
-  const [quoteIndex, setQuoteIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+  const [posts, setPosts] = useState([])
+  const [displayedText, setDisplayedText] = useState('')
+  const [quoteIndex, setQuoteIndex] = useState(0)
+  const [isTyping, setIsTyping] = useState(true)
 
   const quotes = [
-    "The only way to do great work is to love what you do. - Steve Jobs",
+    "So whoever does an atom’s weight of good will see it, - Quran",
+    "Do not lose heart or despair- if you are true believers you have the upper hand. - Quran",
+    "Allah does not burden any soul with more than it can bear. - Quran",
+    "Indeed, I am near. - Quran",
+    "So truly where there is hardship there is also ease. - Quran ﷺ",
+    "The only way to do great work is to love what you do. - Steve Jobs ",
     "Innovation distinguishes between a leader and a follower. - Steve Jobs",
     "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
     "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
@@ -19,45 +25,56 @@ export default function Home() {
     "Code is like humor. When you have to explain it, it's bad. - Cory House",
     "First, solve the problem. Then, write the code. - John Johnson",
     "The most disastrous thing that you can ever learn is your first programming language. - Alan Kay"
-  ];
+  ]
+
+  // Initialize with a random quote on component mount
+  useEffect(() => {
+    setQuoteIndex(Math.floor(Math.random() * quotes.length))
+  }, [])
 
   useEffect(() => {
-    setRandomQuote(quotes[quoteIndex]);
+    const currentQuote = quotes[quoteIndex]
 
     if (isTyping) {
       const typingInterval = setInterval(() => {
         setDisplayedText((prev) => {
-          if (prev.length < randomQuote.length) {
-            return randomQuote.slice(0, prev.length + 1);
+          if (prev.length < currentQuote.length) {
+            return currentQuote.slice(0, prev.length + 1)
           } else {
-            clearInterval(typingInterval);
-            setIsTyping(false); // Stop typing and start pause timer
-            return prev;
+            clearInterval(typingInterval)
+            setIsTyping(false) // Stop typing and start pause timer
+            return prev
           }
-        });
-      }, 80); // Adjust typing speed here
+        })
+      }, 80) // Adjust typing speed here
 
-      return () => clearInterval(typingInterval);
+      return () => clearInterval(typingInterval)
     } else {
       // Delay after typing is complete before switching to next quote
       const pauseAfterTyping = setTimeout(() => {
-        setQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-        setDisplayedText(''); // Reset displayed text for new quote
-        setIsTyping(true); // Start typing next quote
-      }, 6000); // Pause time in milliseconds after full quote is typed
+        setQuoteIndex((prevIndex) => {
+          let newIndex
+          do {
+            newIndex = Math.floor(Math.random() * quotes.length)
+          } while (newIndex === prevIndex)
+          return newIndex
+        })
+        setDisplayedText('') // Reset displayed text for new quote
+        setIsTyping(true) // Start typing next quote
+      }, 3000) // Pause time in milliseconds after full quote is typed
 
-      return () => clearTimeout(pauseAfterTyping);
+      return () => clearTimeout(pauseAfterTyping)
     }
-  }, [quoteIndex, randomQuote, isTyping]);
+  }, [quoteIndex, isTyping])
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('/api/post/getPosts');
-      const data = await res.json();
-      setPosts(data.posts);
-    };
-    fetchPosts();
-  }, []);
+      const res = await fetch('/api/post/getPosts')
+      const data = await res.json()
+      setPosts(data.posts)
+    }
+    fetchPosts()
+  }, [])
   
   return (
     <div>
@@ -102,24 +119,18 @@ export default function Home() {
       </div>
       <style jsx>{`
         .quote-container {
-          // width: 300px
-          max-width: 500px;
-          // margin: 2rem 0;
-          // padding: 1rem;
-          // background-color: #f8f8f8;
+          max-width: 600px;
           border-radius: 8px;
-          // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           float: left;
         }
         .quote {
           font-size: 1.0rem;
           line-height: 1.6;
-          // color: #333;
           font-style: italic;
           border-left: 4px solid #38b2ac;
           padding-left: 0.6rem;
         }
       `}</style>
     </div>
-  );
+  )
 }

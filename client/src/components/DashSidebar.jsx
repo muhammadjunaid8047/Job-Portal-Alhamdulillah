@@ -66,14 +66,14 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
-          {currentUser.isAdmin && (
+          {currentUser && (
             <Link to='/dashboard?tab=posts'>
               <Sidebar.Item
                 active={tab === 'posts'}
                 icon={HiDocumentText}
                 as='div'
               >
-                Posts
+                Internships
               </Sidebar.Item>
             </Link>
           )}

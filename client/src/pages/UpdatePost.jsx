@@ -124,15 +124,15 @@ export default function UpdatePost() {
             value={formData.title}
           />
           <Select
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-            value={formData.category}
+            required
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
           >
-            <option value='uncategorized'>Select a category</option>
-            <option value='javascript'>JavaScript</option>
-            <option value='reactjs'>React.js</option>
-            <option value='nextjs'>Next.js</option>
+            <option value=''>Select a Location</option>
+            <option value='Work From Home'>Work From Home</option>
+            <option value='Karachi'>Karachi</option>
+            <option value='Islamabad'>Islamabad</option>
+            <option value='Lahore'>Lahore</option>
+            <option value='Other'>Other</option>
           </Select>
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>

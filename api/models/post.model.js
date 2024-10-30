@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-
+// import internship from '../../client/src/images/intership.jpg'
+// const image='../../client/src/images/intership.jpg'
 const postSchema = new mongoose.Schema(
   {
     userId: {
@@ -18,7 +19,7 @@ const postSchema = new mongoose.Schema(
     image: {
       type: String,
       default:
-        'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.png',
+        'https://i.postimg.cc/HxWzzp8v/Intership2.jpg',
     },
     category: {
       type: String,

@@ -127,8 +127,8 @@ export default function UpdatePost() {
             required
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
           >
-            <option value=''>Select a Location</option>
-            <option value='Work From Home'>Work From Home</option>
+            <option value=''>Select Location</option>
+            <option value='WorkFromHome'>Work From Home</option>
             <option value='Karachi'>Karachi</option>
             <option value='Islamabad'>Islamabad</option>
             <option value='Lahore'>Lahore</option>

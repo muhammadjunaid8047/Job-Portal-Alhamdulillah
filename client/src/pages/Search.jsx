@@ -7,16 +7,14 @@ export default function Search() {
   const [sidebarData, setSidebarData] = useState({
     searchTerm: '',
     sort: 'desc',
-    category: 'uncategorized',
+    category: 'all',
   });
 
-  console.log(sidebarData);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
   const location = useLocation();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,90 +22,74 @@ export default function Search() {
     const searchTermFromUrl = urlParams.get('searchTerm');
     const sortFromUrl = urlParams.get('sort');
     const categoryFromUrl = urlParams.get('category');
-    if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
-      setSidebarData({
-        ...sidebarData,
-        searchTerm: searchTermFromUrl,
-        sort: sortFromUrl,
-        category: categoryFromUrl,
-      });
-    }
 
-    const fetchPosts = async () => {
-      setLoading(true);
-      const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/post/getposts?${searchQuery}`);
-      if (!res.ok) {
-        setLoading(false);
-        return;
-      }
-      if (res.ok) {
-        const data = await res.json();
-        setPosts(data.posts);
-        setLoading(false);
-        if (data.posts.length === 9) {
-          setShowMore(true);
-        } else {
-          setShowMore(false);
-        }
-      }
-    };
-    fetchPosts();
+    // Set sidebar data based on URL parameters
+    setSidebarData({
+      searchTerm: searchTermFromUrl || '',
+      sort: sortFromUrl || 'desc',
+      category: categoryFromUrl || 'all',
+    });
+
+    fetchPosts(urlParams);
   }, [location.search]);
 
+  const fetchPosts = async (urlParams) => {
+    setLoading(true);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/post/getposts?${searchQuery}`);
+    if (!res.ok) {
+      setLoading(false);
+      return;
+    }
+    
+    const data = await res.json();
+    setPosts(data.posts);
+    setLoading(false);
+    setShowMore(data.posts.length === 9);
+  };
+
   const handleChange = (e) => {
-    if (e.target.id === 'searchTerm') {
-      setSidebarData({ ...sidebarData, searchTerm: e.target.value });
-    }
-    if (e.target.id === 'sort') {
-      const order = e.target.value || 'desc';
-      setSidebarData({ ...sidebarData, sort: order });
-    }
-    if (e.target.id === 'category') {
-      const category = e.target.value || 'uncategorized';
-      setSidebarData({ ...sidebarData, category });
-    }
+    setSidebarData({ ...sidebarData, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const urlParams = new URLSearchParams(location.search);
+    const urlParams = new URLSearchParams();
     urlParams.set('searchTerm', sidebarData.searchTerm);
     urlParams.set('sort', sidebarData.sort);
-    urlParams.set('category', sidebarData.category);
-    const searchQuery = urlParams.toString();
-    navigate(`/search?${searchQuery}`);
+    if (sidebarData.category !== 'all') {
+      urlParams.set('category', sidebarData.category);
+    }
+    navigate(`/search?${urlParams.toString()}`);
   };
 
   const handleShowMore = async () => {
-    const numberOfPosts = posts.length;
-    const startIndex = numberOfPosts;
+    const startIndex = posts.length;
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('startIndex', startIndex);
-    const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/post/getposts?${searchQuery}`);
-    if (!res.ok) {
-      return;
-    }
-    if (res.ok) {
-      const data = await res.json();
-      setPosts([...posts, ...data.posts]);
-      if (data.posts.length === 9) {
-        setShowMore(true);
-      } else {
-        setShowMore(false);
-      }
-    }
+    const res = await fetch(`/api/post/getposts?${urlParams.toString()}`);
+    if (!res.ok) return;
+
+    const data = await res.json();
+    setPosts((prevPosts) => [...prevPosts, ...data.posts]);
+    setShowMore(data.posts.length === 9);
+  };
+
+  const handleResetFilters = () => {
+    setSidebarData({
+      searchTerm: '',
+      sort: 'desc',
+      category: 'all',
+    });
+    navigate('/search'); // Navigate to search without any filters
   };
 
   return (
     <div className='flex flex-col md:flex-row'>
       <div className='p-7 border-b md:border-r md:min-h-screen border-gray-500'>
         <form className='flex flex-col gap-8' onSubmit={handleSubmit}>
-          <div className='flex   items-center gap-2'>
-            <label className='whitespace-nowrap font-semibold'>
-              Search Term:
-            </label>
+          <div className='flex items-center gap-2'>
+            <label className='whitespace-nowrap normal'>Search Term:</label>
             <TextInput
               placeholder='Search...'
               id='searchTerm'
@@ -117,41 +99,48 @@ export default function Search() {
             />
           </div>
           <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Sort:</label>
+            <label className='normal'>Sort:</label>
             <Select onChange={handleChange} value={sidebarData.sort} id='sort'>
               <option value='desc'>Latest</option>
               <option value='asc'>Oldest</option>
             </Select>
           </div>
           <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Category:</label>
+            <label className='normal'>Location:</label>
             <Select
               onChange={handleChange}
               value={sidebarData.category}
               id='category'
             >
-              <option value='uncategorized'>Uncategorized</option>
-              <option value='reactjs'>React.js</option>
-              <option value='nextjs'>Next.js</option>
-              <option value='javascript'>JavaScript</option>
+              <option value='all'>All Locations</option>
+             
+              <option value='WorkFromHome'>Work From Home</option>
+              <option value='Islamabad'>Islamabad</option>
+              <option value='Karachi'>Karachi</option>
+              <option value='Lahore'>Lahore</option>
+              <option value='Other'>Other</option>
             </Select>
           </div>
-          <Button type='submit' outline gradientDuoTone='purpleToPink'>
-            Apply Filters
-          </Button>
+          <div className='flex gap-4'>
+            <Button type='submit' outline gradientDuoTone='purpleToPink'>
+              Apply Filters
+            </Button>
+            <Button outline gradientDuoTone='purpleToPink' onClick={handleResetFilters}>
+            All Internships
+            </Button>
+          </div>
         </form>
       </div>
       <div className='w-full'>
-        <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5 '>
-          Posts results:
+        <h1 className='text-3xl normal sm:border-b border-gray-500 p-3 mt-5 '>
+          Internships:
         </h1>
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && posts.length === 0 && (
-            <p className='text-xl text-gray-500'>No posts found.</p>
+            <p className='text-xl text-gray-500'>No Internships found.</p>
           )}
           {loading && <p className='text-xl text-gray-500'>Loading...</p>}
           {!loading &&
-            posts &&
             posts.map((post) => <PostCard key={post._id} post={post} />)}
           {showMore && (
             <button

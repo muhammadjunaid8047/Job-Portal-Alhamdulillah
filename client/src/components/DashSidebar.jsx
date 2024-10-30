@@ -5,6 +5,7 @@ import {
   HiDocumentText,
   HiOutlineUserGroup,
   HiAnnotation,
+  HiQuestionMarkCircle,
   HiChartPie,
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
@@ -94,7 +95,7 @@ export default function DashSidebar() {
                   icon={HiAnnotation}
                   as='div'
                 >
-                  Comments
+                Questions
                 </Sidebar.Item>
               </Link>
             </>

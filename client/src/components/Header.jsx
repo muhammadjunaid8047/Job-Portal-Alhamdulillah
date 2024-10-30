@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
-import logo from '../images/logopngg.png'
+import logo from '../images/logo.png'
 import { PiRocketDuotone } from "react-icons/pi";
 import { HiChartPie } from 'react-icons/hi';
 
@@ -58,17 +58,22 @@ export default function Header() {
           to='/'
           className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
         >
-        {/* <img 
-      src={logo} // Replace 'logo' with the actual path to your image file
-      alt="Logo"
-      className="h-20 w-20 mb-1" // Adjust the size as needed (h-10 w-10 for similar size)
-    /> */}
-
+      
     {/* Text below the image */}
-    <div className="flex items-center justify-center mt-5">
-      <span className="text-2xl bold dark:text-white">INTERN</span>
-      <span className="text-2xl light dark:text-white">POOLS</span>
-    </div>
+    
+
+    <div className="flex flex-col  items-center justify-center mt-0"> 
+  <img 
+    src={logo} // Replace 'logo' with the actual path to your image file
+    alt="Logo"
+    className="w-15 h-11 mb-0 "  // Ensure consistent height and width
+  />
+<div>
+  <span className="text-lg font-bold dark:text-white">INTERN</span>
+  <span className="text-lg font-light dark:text-white">POOLS</span>
+  </div>
+</div>
+
     {/* <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
           Muhammad's
         </span> */}
@@ -93,7 +98,7 @@ export default function Header() {
           pill
           onClick={() => dispatch(toggleTheme())}
         >
-          {theme === 'light' ? <FaSun /> : <FaMoon />}
+         {theme === 'light' ?  <FaSun /> : <FaMoon />}
         </Button>
         {currentUser ? (
           <Dropdown
@@ -152,15 +157,30 @@ export default function Header() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
+    
         <Navbar.Link className='mt-3' active={path === '/'} as={'div'}>
           <Link to='/'>Home</Link>
         </Navbar.Link>
         
-        <Navbar.Link className='mt-3' active={path === '/about'} as={'div'}>
-          <Link to='/about'>About</Link>
+        <Navbar.Link className='mt-3' active={path === '/badges'} as={'div'}>
+          <Link to='/badges'>Badges</Link>
+        </Navbar.Link>
+
+        <Navbar.Link className='mt-3' active={path === '/search'} as={'div'}>
+          <Link to='/search'>Internships</Link>
         </Navbar.Link>
         <Navbar.Link className='mt-3' active={path === '/projects'} as={'div'}>
           <Link to='/projects'>Ambassadors</Link>
+        </Navbar.Link>
+        <Navbar.Link className='mx-0 justify-end' >
+        <Button
+          className='w-12 h-10 lg:hidden sm:inline align-middle justify-center '
+          color='gray'
+          pill
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {theme === 'light' ? <FaSun /> : <FaMoon />}
+        </Button>
         </Navbar.Link>
         <Navbar.Link active={path === '/projects'} as={'div'}>
         {currentUser && (

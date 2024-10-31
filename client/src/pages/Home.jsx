@@ -104,12 +104,12 @@ export default function Home() {
   return (
     <div>
       <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
-        <h1 className='text-3xl font-bold lg:text-6xl'>Welcome to Intern Pools</h1>
+        <h1 className='text-3xl poppins-bold lg:text-6xl'>Welcome to Intern Pools</h1>
         <p className='text-gray-500 text-xs sm:text-sm'>
           Here you'll find a alot of Internships
         </p>
 
-        <div className="quote-container">
+        <div className="quote-container poppins-extralight">
           <blockquote className="quote">
             {displayedText}
           </blockquote>

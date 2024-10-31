@@ -69,8 +69,8 @@ export default function Header() {
     className="w-15 h-11 mb-0 "  // Ensure consistent height and width
   />
 <div>
-  <span className="text-lg font-bold dark:text-white">INTERN</span>
-  <span className="text-lg font-light dark:text-white">POOLS</span>
+  <span className="text-lg poppins-bold dark:text-white">INTERN</span>
+  <span className="text-lg poppins-light dark:text-white">POOLS</span>
   </div>
 </div>
 
@@ -111,7 +111,7 @@ export default function Header() {
            <Dropdown.Header>
                     <div className='flex flex-col items-center mt-5 glowing-border'>
                       <Avatar alt='user' img={currentUser.profilePicture} size="lg" rounded className='mb-2 ' />
-                      <span className='block text-lg normal'>
+                      <span className='block text-lg poppins-extralight'>
                         Salam✨, {currentUser.username}
                       </span>
                     </div>
@@ -188,10 +188,10 @@ export default function Header() {
           <Button
               type='button'
               gradientDuoTone='purpleToPink' 
-              className='w-full btn  light'
+              className='w-full btn  poppins-light'
               
             >
-              <PiRocketDuotone className='w-6 h-6 mr-2 '/> Create an Internship  
+              <PiRocketDuotone className='w-6 h-6 mr-2  '/> Create an Internship  
             </Button>
           </Link>)}
         </Navbar.Link>

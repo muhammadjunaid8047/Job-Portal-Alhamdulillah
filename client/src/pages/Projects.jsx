@@ -7,7 +7,7 @@ export default function Projects() {
       {/* <h1 className='text-3xl font-semibold'>InternPools </h1> */}
       
 
-      <span className="text-3xl light dark:text-white inline-block">AMBASSADORS</span>
+      <span className="text-3xl poppins-light dark:text-white inline-block">AMBASSADORS</span>
       <p className='text-md text-gray-500'>Coming Soon</p>
       <CallToAction />
     </div>

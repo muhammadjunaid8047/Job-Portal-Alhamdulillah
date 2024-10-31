@@ -89,7 +89,7 @@ export default function Search() {
       <div className='p-7 border-b md:border-r md:min-h-screen border-gray-500'>
         <form className='flex flex-col gap-8' onSubmit={handleSubmit}>
           <div className='flex items-center gap-2'>
-            <label className='whitespace-nowrap normal'>Search Term:</label>
+            <label className='whitespace-nowrap poppins-regular'>Search Term:</label>
             <TextInput
               placeholder='Search...'
               id='searchTerm'
@@ -99,14 +99,14 @@ export default function Search() {
             />
           </div>
           <div className='flex items-center gap-2'>
-            <label className='normal'>Sort:</label>
+            <label className='poppins-regular'>Sort:</label>
             <Select onChange={handleChange} value={sidebarData.sort} id='sort'>
               <option value='desc'>Latest</option>
               <option value='asc'>Oldest</option>
             </Select>
           </div>
           <div className='flex items-center gap-2'>
-            <label className='normal'>Location:</label>
+            <label className='poppins-regular'>Location:</label>
             <Select
               onChange={handleChange}
               value={sidebarData.category}
@@ -132,7 +132,7 @@ export default function Search() {
         </form>
       </div>
       <div className='w-full'>
-        <h1 className='text-3xl normal sm:border-b border-gray-500 p-3 mt-5 '>
+        <h1 className='text-3xl poppins-regular sm:border-b border-gray-500 p-3 mt-5 '>
           Internships:
         </h1>
         <div className='p-7 flex flex-wrap gap-4'>

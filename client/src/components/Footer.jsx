@@ -22,7 +22,7 @@ export default function FooterCom() {
                 
                 
                   <span className="text-1xl bold dark:text-white">INTERN</span>
-                  <span className="text-1xl light dark:text-white">POOLS</span>
+                  <span className="text-1xl poppins-light dark:text-white">POOLS</span>
                 </div>
             </Link>
           </div>

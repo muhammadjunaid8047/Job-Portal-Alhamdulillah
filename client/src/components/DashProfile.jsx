@@ -248,7 +248,7 @@ export default function DashProfile() {
              <Button
               type='button'
               gradientDuoTone='purpleToPink' 
-              className='w-full btn normal light'
+              className='w-full btn  poppins-light'
               
             >
               <PiRocketDuotone className='w-6 h-6 mr-2 '/> Create an Internship  

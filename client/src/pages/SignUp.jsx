@@ -56,7 +56,7 @@ export default function SignUp() {
             </span>
            
             
-            <span className=' light rounded-lg '>
+            <span className=' poppins-light rounded-lg '>
               POOLS
             </span>
             

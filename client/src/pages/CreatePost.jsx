@@ -140,7 +140,7 @@ export default function CreatePost() {
           required
           onChange={(value) => setFormData({ ...formData, content: value })}
         />
-        <Button type='submit' gradientDuoTone='purpleToPink' disabled={!isFormValid}>
+        <Button type='submit' gradientDuoTone='purpleToPink' className='mt-2' disabled={!isFormValid}>
           Publish
         </Button>
         {publishError && (

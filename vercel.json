@@ -1,16 +1,13 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "*.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/"
-      }
-    ]
+  "projects": {
+    "root": {
+      "src": "client",
+      "buildCommand": "npm install && npm run build",
+      "outputDirectory": "client/build"
+    },
+    "api": {
+      "src": "api",
+      "functions": "api"
+    }
   }
-  
+}

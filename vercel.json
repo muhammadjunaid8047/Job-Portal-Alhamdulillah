@@ -1,13 +1,17 @@
 {
-  "projects": {
-    "root": {
-      "src": "client",
-      "buildCommand": "npm install && npm run build",
-      "outputDirectory": "client/build"
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
     },
-    "api": {
-      "src": "api",
-      "functions": "api"
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "client/build" }
     }
-  }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "api/$1" },
+    { "src": "/(.*)", "dest": "client/$1" }
+  ]
 }

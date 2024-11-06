@@ -16,6 +16,88 @@ export default function Search() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const [displayedText, setDisplayedText] = useState('')
+  const [quoteIndex, setQuoteIndex] = useState(0)
+  const [isTyping, setIsTyping] = useState(true)
+
+  const quotes = [ 
+    "Indeed, Allah is with us. - Quran",
+    "So whoever does an atom’s weight of good will see it. - Quran",
+    "Do not lose heart or despair - if you are true believers you have the upper hand. - Quran",
+    "Allah does not burden any soul with more than it can bear. - Quran",
+    "Indeed, I am near. - Quran",
+    "So truly where there is hardship there is also ease. - Quran",
+    "The wing of the Falcon brings to the king, the wing of the crow brings him to the cemetery. - Muhammad Iqbal",
+    "The ultimate aim of the ego is not to see something, but to be something. - Muhammad Allama Iqbal",
+    "Be aware of your own worth, use all of your power to achieve it. Create an ocean from a dewdrop. Do not beg for light from the moon, obtain it from the spark within you. - Muhammad Allama Iqbal",
+    "If one cannot live the life of the brave, then it is better to die like the brave. - Muhammad Allama Iqbal",
+    "From your past emerges the present, and from the present is born your future. - Muhammad Allama Iqbal",
+    "The ultimate aim of the ego is not to see something, but to be something. - Muhammad Allama Iqbal",
+    "The strongest among you is the one who does not lose hope in the mercy of Allah.",
+    "The believers are like one body; if one part of the body suffers, the whole body feels the pain. - Muhammad ﷺ",
+    "Be in this world as if you are a stranger or a traveler. - Muhammad ﷺ",
+    "Never lose hope in Allah's mercy, for He is always closer to you than you think.",
+    "Work hard and have faith; the fruits of your labor will surely follow.",
+    "I am with the Believer when he remembers Me. - Quran",
+    "When My servants ask you O Prophet about Me tell them I am truly near. - Quran",
+    "Seek knowledge from cradle to the grave. - Muhammad ﷺ",
+    "Surely Allah does not change the condition of a people until they change their own condition. - Quran 13:11",
+    "No two things have been combined better than knowledge and patience. - Prophet Muhammad ﷺ",
+    "When a thing disturbs the peace of your heart give it up. - Prophet Muhammad ﷺ",
+    "When you see a person who has been given more than you in money and beauty. Look to those, who have been given less. - Prophet Muhammad (peace be upon him)",
+    "Impossible is temporary. Impossible is nothing. - Muhammad Ali",
+    "If my mind can conceive it, if my heart can believe it—then I can achieve it. - Muhammad Ali",
+    "A man who has no imagination has no wings. - Muhammad Ali",
+    "It's not the mountains that slow you down; it's the stone in your shoe. - Muhammad Ali",
+    "I'm so mean, I make medicine sick. - Muhammad Ali",
+    "Live every day as if it were your last because someday you're going to be right. - Muhammad Ali",
+    "I hated every minute of training, but I said, 'Don't quit. Suffer now and live the rest of your life as a champion.' - Muhammad Ali",
+    "Champions aren't made in gyms. Champions are made from something they have deep inside them—a desire, a dream, a vision. They have to have the skill, and the will. But the will must be stronger than the skill. - Muhammad Ali",
+    "The best way to make your dreams come true is to wake up. - Muhammad Ali",
+    "The service you do for others is the rent you pay for your room here on Earth. - Muhammad Ali",
+    "What you're thinking is what you're becoming. - Muhammad Ali",
+    "I believe in the religion of Islam. I believe in Allah and peace. - Muhammad Ali"
+];
+
+
+
+  useEffect(() => {
+    setQuoteIndex(Math.floor(Math.random() * quotes.length))
+  }, [])
+
+  useEffect(() => {
+    const currentQuote = quotes[quoteIndex]
+
+    if (isTyping) {
+      const typingInterval = setInterval(() => {
+        setDisplayedText((prev) => {
+          if (prev.length < currentQuote.length) {
+            return currentQuote.slice(0, prev.length + 1)
+          } else {
+            clearInterval(typingInterval)
+            setIsTyping(false) 
+            return prev
+          }
+        })
+      }, 80) 
+
+      return () => clearInterval(typingInterval)
+    } else {
+      const pauseAfterTyping = setTimeout(() => {
+        setQuoteIndex((prevIndex) => {
+          let newIndex
+          do {
+            newIndex = Math.floor(Math.random() * quotes.length)
+          } while (newIndex === prevIndex)
+          return newIndex
+        })
+        setDisplayedText('') 
+        setIsTyping(true)
+      }, 3000)
+
+      return () => clearTimeout(pauseAfterTyping)
+    }
+  }, [quoteIndex, isTyping])
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -125,16 +207,24 @@ export default function Search() {
             <Button type='submit' outline gradientDuoTone='purpleToPink'>
               Apply Filters
             </Button>
-            <Button outline gradientDuoTone='purpleToPink' onClick={handleResetFilters}>
+            {/* <Button outline gradientDuoTone='purpleToPink' onClick={handleResetFilters}>
             All Internships
-            </Button>
+            </Button> */}
           </div>
         </form>
       </div>
       <div className='w-full'>
-        <h1 className='text-3xl poppins-regular sm:border-b border-gray-500 p-3 mt-5 '>
+        <div className='sm:border-b border-gray-500'>
+        <h1 className='text-3xl poppins-regular p-3 mt-5 '>
           Internships:
         </h1>
+        <div className="p-3 quote-container poppins-light">
+          <blockquote className="quote">
+            {displayedText}
+          </blockquote>
+        </div></div>
+        
+
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && posts.length === 0 && (
             <p className='text-xl text-gray-500'>No Internships found.</p>
@@ -152,6 +242,20 @@ export default function Search() {
           )}
         </div>
       </div>
+      <style jsx>{`
+        .quote-container {
+          // max-width: 600px;
+          border-radius: 8px;
+          // float: left;
+        }
+        .quote {
+          font-size: 1.0rem;
+          line-height: 1.2;
+          font-style: italic;
+          border-left: 4px solid #38b2ac;
+          padding-left: 0.6rem;
+        }
+      `}</style>
     </div>
   );
 }

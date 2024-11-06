@@ -88,9 +88,9 @@ export default function Header() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+       <Button className='w-12 h-10 lg:hidden' color='gray' pill onClick={() => navigate('/search')} >
         <AiOutlineSearch />
-      </Button>
+      </Button> 
       <div className='flex gap-2 md:order-2'>
         <Button
           className='w-12 h-10 hidden sm:inline'
@@ -111,7 +111,7 @@ export default function Header() {
            <Dropdown.Header>
                     <div className='flex flex-col items-center mt-5 glowing-border'>
                       <Avatar alt='user' img={currentUser.profilePicture} size="lg" rounded className='mb-2 ' />
-                      <span className='block text-lg poppins-extralight'>
+                      <span className='block text-lg poppins-light'>
                         Salam✨, {currentUser.username}
                       </span>
                     </div>

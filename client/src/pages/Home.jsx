@@ -109,7 +109,7 @@ export default function Home() {
           Here you'll find a alot of Internships
         </p>
 
-        <div className="quote-container poppins-extralight">
+        <div className="quote-container poppins-light">
           <blockquote className="quote">
             {displayedText}
           </blockquote>
@@ -152,7 +152,7 @@ export default function Home() {
         }
         .quote {
           font-size: 1.0rem;
-          line-height: 1.6;
+          line-height: 1.2;
           font-style: italic;
           border-left: 4px solid #38b2ac;
           padding-left: 0.6rem;
